@@ -9,6 +9,7 @@ cmake
 doxygen
 gcc
 gcc-c++
+gcovr
 git
 kernel-devel
 make
