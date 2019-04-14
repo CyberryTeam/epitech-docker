@@ -17,6 +17,7 @@ build-essential
 cmake
 criterion-dev
 doxygen
+gcovr
 valgrind
 wget
 zip
