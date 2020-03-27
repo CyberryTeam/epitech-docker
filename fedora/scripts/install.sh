@@ -25,10 +25,13 @@ python3
 
 PACKAGES_C="
 ncurses-devel
-SFML-devel
+SDL2-devel
+SDL2_image-devel
+SDL2_ttf-devel
 "
 
 PACKAGES_CPP="
+SFML-devel
 "
 
 BUILD_SCRIPTS_ALL="
@@ -42,13 +45,13 @@ build_csfml.sh
 BUILD_SCRIPTS_CPP="
 "
 
-cd ${SCRIPTS_PATH}
+cd ${SCRIPTS_PATH} || exit 1
 
 dnf update -y
 
 dnf install -y ${PACKAGES_ALL}
 dnf install -y ${PACKAGES_LANG}
-for PARAM in $@ ; do
+for PARAM in "$@" ; do
     if [[ "$PARAM" = "c" ]]; then
         dnf install -y ${PACKAGES_C}
     fi
@@ -60,7 +63,7 @@ done
 for SCRIPT in ${BUILD_SCRIPTS_ALL} ; do
     bash "${BUILD_SCRIPTS_FOLDER}/${SCRIPT}"
 done
-for PARAM in $@ ; do
+for PARAM in "$@" ; do
     if [[ "$PARAM" = "c" ]]; then
         for SCRIPT in ${BUILD_SCRIPTS_C} ; do
             bash "${BUILD_SCRIPTS_FOLDER}/${SCRIPT}"
@@ -76,7 +79,7 @@ done
 dnf autoremove -y
 dnf clean all
 
-for PARAM in $@ ; do
+for PARAM in "$@" ; do
     if [[ "$PARAM" = "rm" ]]; then
         rm -rf ${SCRIPTS_PATH}
     fi
