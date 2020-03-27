@@ -5,4 +5,4 @@ LABEL maintener="Cyberry Team"
 
 COPY /scripts /tmp/scripts
 
-RUN ["bash", "/tmp/scripts/install.sh", "c", "rm"]
+RUN ["bash", "/tmp/scripts/install.sh", "c", "cpp", "rm"]
