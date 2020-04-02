@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 SCRIPTS_PATH="/tmp/scripts"
+BUILD_SCRIPTS_FOLDER="build-scripts"
 
 PPAS_ALL="
-snaipewastaken/ppa
 "
 
 PPAS_C="
@@ -15,9 +15,9 @@ PPAS_CPP="
 PACKAGES_ALL="
 build-essential
 cmake
-criterion-dev
 doxygen
 gcovr
+git
 valgrind
 wget
 zip
@@ -38,6 +38,16 @@ libsdl2-ttf-dev
 
 PACKAGES_CPP="
 libsfml-dev
+"
+
+BUILD_SCRIPTS_ALL="
+build_criterion.sh
+"
+
+BUILD_SCRIPTS_C="
+"
+
+BUILD_SCRIPTS_CPP="
 "
 
 cd ${SCRIPTS_PATH} || exit 1
@@ -71,6 +81,22 @@ for PARAM in "$@" ; do
     fi
     if [[ "$PARAM" = "cpp" ]]; then
         apt-get install -y ${PACKAGES_CPP}
+    fi
+done
+
+for SCRIPT in ${BUILD_SCRIPTS_ALL} ; do
+    bash "${BUILD_SCRIPTS_FOLDER}/${SCRIPT}"
+done
+for PARAM in "$@" ; do
+    if [[ "$PARAM" = "c" ]]; then
+        for SCRIPT in ${BUILD_SCRIPTS_C} ; do
+            bash "${BUILD_SCRIPTS_FOLDER}/${SCRIPT}"
+        done
+    fi
+    if [[ "$PARAM" = "cpp" ]]; then
+        for SCRIPT in ${BUILD_SCRIPTS_CPP} ; do
+            bash "${BUILD_SCRIPTS_FOLDER}/${SCRIPT}"
+        done
     fi
 done
 
