@@ -33,8 +33,7 @@ jobs:
       - name: Get version
         id: version
         run: |
-          git fetch --prune --tags --unshallow
-          TAG="$(git describe --tags $(git rev-list --tags --max-count=1))"
+          TAG="${GITHUB_REF#refs/tags/}"
           NAME="$(echo $TAG | grep -oP '^.+(?=-)')"
           MAJOR="$(echo $TAG | grep -oP '^.*?\d+')"
           MINOR="$(echo $TAG | grep -oP '^.*?\d+.\d+')"
@@ -49,7 +48,7 @@ jobs:
       - name: Build
         run: |
           docker build . \
-            -t $DOCKER_IMAGE_USER/$DOCKER_IMAGE_NAME:latest \
+            -t $DOCKER_IMAGE_USER/$DOCKER_IMAGE_NAME:latest${{ steps.version.outputs.packages }} \
             -t $DOCKER_IMAGE_USER/$DOCKER_IMAGE_NAME:${{ steps.version.outputs.name }}${{ steps.version.outputs.packages }} \
             -t $DOCKER_IMAGE_USER/$DOCKER_IMAGE_NAME:${{ steps.version.outputs.major }}${{ steps.version.outputs.packages }} \
             -t $DOCKER_IMAGE_USER/$DOCKER_IMAGE_NAME:${{ steps.version.outputs.minor }}${{ steps.version.outputs.packages }} \
