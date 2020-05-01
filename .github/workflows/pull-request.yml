@@ -1,0 +1,37 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: ['ubuntu*']
+
+env:
+  DOCKER_IMAGE_USER: cyberryteam
+  DOCKER_IMAGE_NAME: epitech-docker
+
+jobs:
+
+  docker:
+    runs-on: [ubuntu-latest]
+
+    strategy:
+      matrix:
+        packages:
+          - "all"
+          - "core"
+          - "c"
+          - "cpp"
+          - "python"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          docker build . \
+            -t $DOCKER_IMAGE_USER/$DOCKER_IMAGE_NAME:ubuntu \
+            --build-arg IMAGE_PACKAGES=${{ matrix.packages }}
+
+      - name: Test
+        run: |
+          chmod +x test/test.sh
+          docker run --rm -v "$PWD/test:/tmp" $DOCKER_IMAGE_USER/$DOCKER_IMAGE_NAME:ubuntu ./test.sh ${{ matrix.packages }}
