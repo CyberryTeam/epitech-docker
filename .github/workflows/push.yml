@@ -33,8 +33,7 @@ jobs:
       - name: Get version
         id: version
         run: |
-          git fetch --prune --tags --unshallow
-          TAG="$(git describe --tags $(git rev-list --tags --max-count=1))"
+          TAG="${GITHUB_REF#refs/tags/}"
           NAME="$(echo $TAG | grep -oP '^.+(?=-)')"
           MAJOR="$(echo $TAG | grep -oP '^.*?\d+')"
           MINOR="$(echo $TAG | grep -oP '^.*?\d+.\d+')"
