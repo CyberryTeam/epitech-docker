@@ -39,6 +39,7 @@ RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "c" ]] ; \
         SDL2-devel \
         SDL2_image-devel \
         SDL2_ttf-devel \
+        libxml2-devel \
     ; fi
 
 RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "cpp" ]] ; \
