@@ -38,6 +38,7 @@ RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "c" ]] ; \
         libsdl2-dev \
         libsdl2-image-dev \
         libsdl2-ttf-dev \
+        libxml2-dev \
     ; fi
 
 RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "cpp" ]] ; \
