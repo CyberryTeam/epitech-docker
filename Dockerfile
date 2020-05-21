@@ -40,6 +40,7 @@ RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "c" ]] ; \
         SDL2_image-devel \
         SDL2_ttf-devel \
         libxml2-devel \
+        libuuid-devel \
     ; fi
 
 RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "cpp" ]] ; \
