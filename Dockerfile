@@ -39,6 +39,7 @@ RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "c" ]] ; \
         libsdl2-image-dev \
         libsdl2-ttf-dev \
         libxml2-dev \
+        uuid-dev \
     ; fi
 
 RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "cpp" ]] ; \
@@ -50,6 +51,7 @@ RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "python" ]] ; \
     then apt-get install -y \
         python3 \
         python3-numpy \
+        python3-venv \
         python3-virtualenv \
     ; fi
 
@@ -57,6 +59,11 @@ WORKDIR tmp/
 COPY build/ build/
 
 RUN bash build/core/criterion.sh
+
+RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "cpp" ]] ; \
+    then \
+        bash build/cpp/irrlicht.sh \
+    ; fi
 
 RUN rm -rf *
 
