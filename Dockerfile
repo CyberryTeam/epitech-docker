@@ -53,6 +53,7 @@ RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "python" ]] ; \
     then dnf install -y \
         python3 \
         python3-numpy \
+        python3-pip \
         python3-virtualenv \
     ; fi
 
