@@ -35,16 +35,17 @@ RUN dnf install -y \
 
 RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "c" ]] ; \
     then dnf install -y \
+        libuuid-devel \
         ncurses-devel \
         SDL2-devel \
         SDL2_image-devel \
         SDL2_ttf-devel \
         libxml2-devel \
-        libuuid-devel \
     ; fi
 
 RUN if [[ "$IMAGE_PACKAGES" =~ "all" || "$IMAGE_PACKAGES" =~ "cpp" ]] ; \
     then dnf install -y \
+        irrlicht-devel \
         SFML-devel \
     ; fi
 
