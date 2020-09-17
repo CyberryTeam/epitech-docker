@@ -36,3 +36,19 @@ jobs:
         run: |
           chmod +x test/test.sh
           docker run --rm -v "$PWD/test:/tmp" $DOCKER_IMAGE_USER/$DOCKER_IMAGE_NAME:ubuntu ./test.sh ${{ matrix.packages }}
+
+  super-linter:
+    name: Super-Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Lint
+        uses: github/super-linter@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: .*.github/.*
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_MD: true
