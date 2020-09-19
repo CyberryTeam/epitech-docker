@@ -2,7 +2,7 @@ name: Push
 
 on:
   push:
-    tags: ['ubuntu*']
+    tags: [ 'ubuntu*' ]
 
 env:
   DOCKER_IMAGE_USER: cyberryteam
@@ -11,8 +11,6 @@ env:
 jobs:
 
   docker:
-    runs-on: [ubuntu-latest]
-
     strategy:
       matrix:
         packages:
@@ -21,6 +19,9 @@ jobs:
           - "c"
           - "cpp"
           - "python"
+
+    name: Docker for ${{ matrix.packages }}
+    runs-on: [ ubuntu-latest ]
 
     steps:
       - uses: actions/checkout@v2
